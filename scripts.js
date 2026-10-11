@@ -1,61 +1,56 @@
 const convertButton = document.querySelector('.convert-button');
 const currencySelect = document.querySelector('.currency-select');
 
-function convertValues() {
-    const inputCurrencyValue = document.querySelector('.input-currency').value
-    const currencyValueToConvert = document.querySelector('.currency-value-to-convert'); //valor em real
-    const currencyValueConverted = document.querySelector('.currency-value'); //outras moedas
+const convertValues = async () => {
+    const inputCurrencyValue = Number(document.querySelector('.input-currency').value || 0);
+    const currencyValueToConvert = document.querySelector('.currency-value-to-convert');
+    const currencyValueConverted = document.querySelector('.currency-value');
 
-    console.log(currencySelect.value)
-    const dolarToday = 5.2;
-    const euroToday = 6.2;
+    const data = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL') // o fetch serve para fazer requisições HTTP, neste caso, para obter os dados de câmbio do dólar e do euro em relação ao real
+        .then(response => response.json());
 
-    if (currencySelect.value == 'dolar') { //se o valor selecionado for dolar, faça essa conversão
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-        }).format(inputCurrencyValue / dolarToday);
-    }
+    const dolar = Number(data.USDBRL.high);
+    const euro = Number(data.EURBRL.high);
 
-    if (currencySelect.value == 'euro') { //se for euro, faça essa conversão
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
-            style: "currency",
-            currency: "EUR",
-        }).format(inputCurrencyValue / euroToday);
-    }
-
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
+    currencyValueToConvert.innerHTML = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
     }).format(inputCurrencyValue);
-}
+
+    if (currencySelect.value === 'dolar') {
+        currencyValueConverted.innerHTML = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(inputCurrencyValue / dolar);
+    }
+
+    if (currencySelect.value === 'euro') {
+        currencyValueConverted.innerHTML = new Intl.NumberFormat('de-DE', {
+            style: 'currency',
+            currency: 'EUR',
+        }).format(inputCurrencyValue / euro);
+    }
+};
 
 function ChangeCurrency() {
-    const currencyName = document.getElementById('currency-name'); //adicionamos a # para selecionar o id do elemento
-    const currencyImage = document.querySelector('.currency-img'); //selecionamos a imagem para trocar a bandeira de acordo com a moeda selecionada
+    const currencyName = document.getElementById('currency-name');
+    const currencyImage = document.querySelector('.currency-img');
 
-    if (currencySelect.value == 'dolar') {
+    if (currencySelect.value === 'dolar') {
         currencyName.innerHTML = 'Dólar Americano';
         currencyImage.src = './assets/logo-EUA.png';
     }
 
-    if (currencySelect.value == 'euro') {
+    if (currencySelect.value === 'euro') {
         currencyName.innerHTML = 'Euro';
         currencyImage.src = './assets/logo-Euro.png';
     }
 
-    convertValues()
+    convertValues();
 }
 
-
-
-
-
-
-
-currencySelect.addEventListener('change', ChangeCurrency)
+currencySelect.addEventListener('change', ChangeCurrency);
 convertButton.addEventListener('click', convertValues);
-
 
 /* 
 innerHTML é uma propriedade que permite acessar ou modificar o conteúdo HTML de um elemento.
