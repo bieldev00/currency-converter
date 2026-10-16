@@ -5,10 +5,35 @@
     font-family: "Roboto", sans-serif;
     outline: none;
     /* outline: none serve para removermos a borda de foco que aparece quando clicamos em um elemento */
+    font-style: normal;
+    font-weight: normal;
 }
 
 body {
     background-color: #8C52FD;
+}
+
+.container {
+    width: 375px;
+    background-color: #8C52FD;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+header {
+    color: #ffffff;
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 900;
+    padding-top: 25px;
+}
+
+p {
+    font-size: 20px;
+    font-weight: 400;
 }
 
 /* a diferença de backgroud-color para background é que o primeiro é mais específico, ou seja, tem mais prioridade, já em background, podemos usar outras propriedades como background-image, background-position, background-size, etc. */
