@@ -3,8 +3,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    outline: none;
-    /* outline: none serve para removermos a borda de foco que aparece quando clicamos em um elemento */
     font-style: normal;
     font-weight: normal;
 }
@@ -56,6 +54,7 @@ main {
 
 
 label {
+    display: block;
     color: #555555;
     font-weight: 400;
     font-size: 14px;
@@ -79,6 +78,13 @@ input {
 input {
     cursor: text;
     /* a propriedade cursor: text é usado para deixar o cursor em forma de texto, ou seja, a letra I, indicando que o usuário pode digitar algo naquele campo. */
+}
+
+select:focus-visible,
+input:focus-visible,
+button:focus-visible {
+    outline: 3px solid #4c1d95;
+    outline-offset: 3px;
 }
 
 button {

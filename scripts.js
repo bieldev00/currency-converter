@@ -2,7 +2,20 @@ const convertButton = document.querySelector('.convert-button');
 const currencySelect = document.querySelector('.currency-select');
 
 const convertValues = async () => {
-    const inputCurrencyValue = Number(document.querySelector('.input-currency').value || 0);
+    const inputCurrency = document.querySelector('.input-currency');
+    const normalizedValue = inputCurrency.value
+        .trim()
+        .replace(/\./g, '')
+        .replace(',', '.');
+    const inputCurrencyValue = normalizedValue === '' ? 0 : Number(normalizedValue);
+
+    inputCurrency.setCustomValidity('');
+    if (!Number.isFinite(inputCurrencyValue) || inputCurrencyValue < 0) {
+        inputCurrency.setCustomValidity('Digite um valor válido, como 10000,00 ou 10.000,00.');
+        inputCurrency.reportValidity();
+        return;
+    }
+
     const currencyValueToConvert = document.querySelector('.currency-value-to-convert');
     const currencyValueConverted = document.querySelector('.currency-value');
 
@@ -43,7 +56,7 @@ function ChangeCurrency() {
 
     if (currencySelect.value === 'euro') {
         currencyName.innerHTML = 'Euro';
-        currencyImage.src = './assets/logo-Euro.png';
+        currencyImage.src = './assets/logo-euro.png';
     }
 
     convertValues();
@@ -56,5 +69,4 @@ convertButton.addEventListener('click', convertValues);
 innerHTML é uma propriedade que permite acessar ou modificar o conteúdo HTML de um elemento.
 
 Intl.NumberFormat é um objeto global em JavaScript que fornece uma maneira de formatar números de acordo com as convenções de um idioma específico. Ele é usado para formatar números como moeda, porcentagem, ou simplesmente para exibir números com separadores de milhares e casas decimais de acordo com as regras do idioma escolhido.
-
 */

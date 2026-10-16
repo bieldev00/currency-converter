@@ -25,32 +25,19 @@
 
 
         <main>
-            <label> <!-- serve para agrupar elementos, usada para associar texto a elementos de formulário -->
-                converter <b>de:<b>
-                        <select> <!-- elemento de formulário que cria um menu suspenso -->
-                            <option> <!-- elemento de formulário que define uma opção em um menu suspenso -->
-                                R$ Real Brasileiro
-                            </option>
-                        </select>
-            </label>
+            <label for="currency-from">Converter de:</label>
+            <select id="currency-from">
+                <option value="brl">R$ Real Brasileiro</option>
+            </select>
 
-            <label> <!-- serve para agrupar elementos, usada para associar texto a elementos de formulário -->
-                converter <b>para:<b>
-                        <select class="currency-select">
-                            <option value="dolar">
-                                US$ Dólar Americano
-                            </option>
-                            <option value="euro">
-                                € euro
-                            </option>
+            <label for="currency-to">Converter para:</label>
+            <select id="currency-to" class="currency-select">
+                <option value="dolar">US$ Dólar Americano</option>
+                <option value="euro">€ Euro</option>
+            </select>
 
-                        </select>
-            </label>
-
-            <label>
-                valor
-                <input class="input-currency" placeholder="R$10.000,00">
-            </label>
+            <label for="amount">Valor:</label>
+            <input id="amount" class="input-currency" type="text" inputmode="decimal" placeholder="R$ 10.000,00">
 
             <button class="convert-button">converter</button>
 
